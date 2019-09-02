@@ -1,6 +1,27 @@
 # 腾讯云服务器 cvm 使用技巧
 
-##### 1.MySQL 安装 [参考](https://cloud.tencent.com/developer/labs/lab/10376)
+安装第三方软件一般是通过系统软件 yum 进行安装的，在使用 yum 之前可以先更新到最新版本`yum install -y`。
+安装 Epel Release 可以让我们拥有更加丰富的软件资源，比如后续我们要使用的 Nginx ，就是包含在 EPEL Release 中的。执行命令`yum install epel-release -y`安装 Epel Release
+
+#### 1.常用命令
+
+- 查看软件安装信息
+  `rpm -ql nginx`
+  rpm 是 linux 的 rpm 包管理工具，-q 代表询问模式，-l 代表返回列表，这样我们就可以找到 nginx 的所有安装位置了
+- 编辑文件,使用系统自带的编辑器 vim
+  执行命令：`vim 文件路径及名称`，如：`vim /etc/nginx/nginx.conf`
+
+- 新建文件
+  `touch 文件名`
+- 新建文件夹
+  `mkdir -p 文件夹名称`
+  -p 表示向下递归新建文件夹
+- 删除文件/文件夹
+  `rm -rf 文件路径及名称`
+  -r 就是向下递归，不管有多少级目录，一并删除
+  -f 就是直接强行删除，不作任何提示的意思
+
+#### 2.MySQL 安装 [参考](https://cloud.tencent.com/developer/labs/lab/10376)
 
 在腾讯云上使用的是 MariaDB，它是 MySQL 的一个分支，完全兼容 MySQL
 
@@ -21,7 +42,7 @@ yum remove mariadb mariadb-server - y
 
 ---
 
-##### 2.Node 安装 [参考 1](https://cloud.tencent.com/developer/labs/lab/10371)、 [参考 2](https://cloud.tencent.com/developer/labs/lab/10040)
+#### 3.Node 安装 [参考 1](https://cloud.tencent.com/developer/labs/lab/10371)、 [参考 2](https://cloud.tencent.com/developer/labs/lab/10040)
 
 **方法一**
 该实践过程中发现安装其他版本会报错，所以推荐第二种
@@ -68,4 +89,25 @@ source /etc/profile
 
 7.使用npm
 如 npm install express-generator -g
+```
+
+#### 4.nginx 安装和使用 [参考 1](https://cloud.tencent.com/developer/labs/lab/10376)、[参考 2](https://www.cnblogs.com/zengfp/p/9897026.html)
+
+```
+1.安装 Nginx
+yum install nginx -y
+
+2.启动nginx
+systemctl start nginx.service
+
+3.停止nginx
+systemctl stop nginx.service
+
+4.重启nginx
+systemctl reload nginx.service
+systemctl restart nginx.service
+
+5.卸载nginx
+yum remove nginx -y
+
 ```
