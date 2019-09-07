@@ -5,18 +5,20 @@
 
 #### 1.常用命令
 
-- 查看软件安装信息
+- **查看软件安装信息**
   `rpm -ql nginx`
   rpm 是 linux 的 rpm 包管理工具，-q 代表询问模式，-l 代表返回列表，这样我们就可以找到 nginx 的所有安装位置了
-- 编辑文件,使用系统自带的编辑器 vim
+- **查看正在使用的服务和端口**
+  可以通过执行 `netstat -tunlp`，`netstat -antup`，`lsof -i:PORT` 命令进行查看
+- **编辑文件,使用系统自带的编辑器 vim**
   执行命令：`vim 文件路径及名称`，如：`vim /etc/nginx/nginx.conf`
 
-- 新建文件
+- **新建文件**
   `touch 文件名`
-- 新建文件夹
+- **新建文件夹**
   `mkdir -p 文件夹名称`
   -p 表示向下递归新建文件夹
-- 删除文件/文件夹
+- **删除文件/文件夹**
   `rm -rf 文件路径及名称`
   -r 就是向下递归，不管有多少级目录，一并删除
   -f 就是直接强行删除，不作任何提示的意思
@@ -111,3 +113,6 @@ systemctl restart nginx.service
 yum remove nginx -y
 
 ```
+
+nginx 默认安装在根目录，index 文件在/usr/share/nginx/html 目录下，配置文件在/etc/nginx 目录下。以上信息可以通过命令`rpm -ql nginx`查看。
+测试 nginx 配置文件是否正确，执行命令`/usr/sbin/nginx -t`
