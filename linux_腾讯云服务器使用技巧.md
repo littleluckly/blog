@@ -1,9 +1,9 @@
-# 腾讯云服务器 cvm 使用技巧
+# linux 使用记录
 
 安装第三方软件一般是通过系统软件 yum 进行安装的，在使用 yum 之前可以先更新到最新版本`yum install -y`。
 安装 Epel Release 可以让我们拥有更加丰富的软件资源，比如后续我们要使用的 Nginx ，就是包含在 EPEL Release 中的。执行命令`yum install epel-release -y`安装 Epel Release
 
-#### 1.常用命令
+### 1.常用命令
 
 - **查看软件安装信息**
   ```
@@ -44,7 +44,7 @@
   -r 就是向下递归，不管有多少级目录，一并删除
   -f 就是直接强行删除，不作任何提示的意思
 
-#### 2.MySQL 安装 [参考](https://cloud.tencent.com/developer/labs/lab/10376)
+### 2.MySQL 安装 [参考](https://cloud.tencent.com/developer/labs/lab/10376)
 
 在腾讯云上使用的是 MariaDB，它是 MySQL 的一个分支，完全兼容 MySQL
 
@@ -65,7 +65,7 @@ yum remove mariadb mariadb-server - y
 
 ---
 
-#### 3.Node 安装 [参考](https://cloud.tencent.com/developer/labs/lab/10040)
+### 3.Node 安装 [参考](https://cloud.tencent.com/developer/labs/lab/10040)
 
 ```
 1.下载最新的稳定版 v6.10.3 到本地
@@ -103,7 +103,13 @@ source /etc/profile
   `pm2 startup`，然后保存`pm2 save`
 
 - pm2 启动进程
-  执行命令`pm2 start node启动脚本路径`即可，如果启动进程时想要指定名称，可使用`pm2 start node启动脚本路径 --name 进程名称`
+
+  ```
+  pm2 start node启动脚本路径
+
+  // 如果启动进程时想要指定名
+  pm2 start node启动脚本路径 --name 进程名称
+  ```
 
 - 查看已启动的进程列表
   `pm2 list`
@@ -118,7 +124,7 @@ source /etc/profile
 - 查看进程日志
   `pm2 logs 进程名称`
 
-#### 4.nginx 安装和使用 [参考 1](https://cloud.tencent.com/developer/labs/lab/10376)、[参考 2](https://www.cnblogs.com/zengfp/p/9897026.html)
+### 4.nginx 安装和使用 [参考 1](https://cloud.tencent.com/developer/labs/lab/10376)、[参考 2](https://www.cnblogs.com/zengfp/p/9897026.html)
 
 ```
 1.安装 Nginx
