@@ -148,3 +148,42 @@ yum remove nginx -y
 
 nginx 默认安装在根目录，index 文件在/usr/share/nginx/html 目录下，配置文件在/etc/nginx 目录下。nginx 安装路径信息可以通过命令`rpm -ql nginx`查看。
 测试 nginx 配置文件是否正确，执行命令`/usr/sbin/nginx -t`
+
+### 5.redis 安装和使用,[参考](https://blog.csdn.net/qq_39135287/article/details/83474865)
+
+```
+1.下载最新稳定版，为了方便管理统一下载到/root目录
+wget http://download.redis.io/releases/redis-stable.tar.gz
+
+2.解压
+tar xzf redis-stable.tar.gz
+
+3.进入解压后的目录
+cd redis-stable
+
+4.编译
+make
+
+5.安装
+cd src && make install
+
+```
+
+为了方便管理，将 Redis 文件中的 conf 配置文件和常用命令移动到统一文件中
+
+```
+1.新建文件夹etc和bin
+mkdir etc && mkdir bin
+
+2.将redis.conf移动到etc目录
+mv redis.conf ./etc
+
+3.编辑redis.conf文件，将daemonize的值设为yes(表明需要在后台运行)
+
+4.将src目录下到mkreleasehdr.sh、redis-benchmark、redis-check-aof、redis-cli、redis-server 移动到bin
+mv mkreleasehdr.sh redis-benchmark redis-check-aof redis-cli redis-server ./bin
+
+5.启动redis
+/root/redis-stable/bin/redis-server /root/redis-stable/etc/redis.conf
+
+```
