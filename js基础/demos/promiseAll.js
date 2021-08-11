@@ -66,7 +66,7 @@ const p4 = new Promise((resolve, reject) => {
   reject(4);
 });
 
-// (async function () {
-//   const res = await Promise.race([p4]);
-//   console.log("res", res);
-// })();
+(async function () {
+  const res = await Promise.race([p4]);
+  console.log("res", res);
+})();
