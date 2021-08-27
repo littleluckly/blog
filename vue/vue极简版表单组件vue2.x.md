@@ -53,7 +53,7 @@ export default {
 
 1. 接受`label`，用于显示表单项文本
 2. 接受`prop`，当前表单项的 key，用于获取校验规则、表单项的值。
-3. 提供`validate`方式，校验当前表单项
+3. 提供`validate`方法，校验当前表单项
 4. 注册自定事件 validate，表单项的具体控件如`my-input`在`blur`或者`change`时调用该方法进行校验
 
 ```js
