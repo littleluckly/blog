@@ -8,11 +8,12 @@
 > 2. toRefs
 > 3. ref
 > 4. reactive
-> 5. v-model
+> 5. v-model, 用法参考[https://v3.cn.vuejs.org/guide/component-custom-events.html#v-model-%E5%8F%82%E6%95%B0](https://v3.cn.vuejs.org/guide/component-custom-events.html#v-model-%E5%8F%82%E6%95%B0)
 > 6. 事件订阅派发，采用第三方库`mitt`，用法参考[https://www.npmjs.com/package/mitt](https://www.npmjs.com/package/mitt)
 > 7. 表单校验，第三方库`async-validator`，用法参考：[https://www.npmjs.com/package/async-validator](https://www.npmjs.com/package/async-validator)
 > 8. provide/inject，父子/子孙数据传递，用法参考：[https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#provide-inject](https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#provide-inject)
 > 9. 组件注册
+> 10. vue3的非兼容性api，[https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp](https://v3.cn.vuejs.org/guide/migration/global-api.html#%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%85%A8%E5%B1%80-api-createapp)
 
 需求拆解
 
@@ -269,13 +270,17 @@ onMounted(() => {
 input 组件功能较为简单，主要是两个功能点
 
 - 实现 v-model
+
+  与 vue2.x 相比 v-model 发生了一点点变化
+
+  - `value`改成了`modelValue`
+  - `input`事件改成了`update:modelValue`， 类似 v-bind:xxx.sync
+
 - blur 和 input 事件触发校验
+
 - $attrs 普通属性的传递
 
-与 vue2.x 相比 v-model 发生了一点点变化
 
-- `value`改成了`modelValue`
-- `input`事件改成了`update:modelValue`， 类似 v-bind:xxx.sync
 
 ```js
 <template>
@@ -315,9 +320,9 @@ export default {
 
 ## 注册 Emitter 插件，实现全局事件触发与监听
 
-在 ti-form 组件和 ti-form-item 组件我们都引入了 mitt 库，注册了自定义事件，并且都 provide 传递给了组件，这个过程我们可以进一步优化，实现一个 emitter 插件，在 app.config.globalPerperties 中进行声明，绑定到全局属性中。如此操作后在所有组件实例中就可以通过 proxy.$sub注册事件，proxy.$pub 触发事件。
+在 ti-form 组件和 ti-form-item 组件我们都引入了 mitt 库，注册了自定义事件，并且都通过`provide` 传递给了组件，这个过程我们可以进一步优化，实现一个 emitter 插件，在 `app.config.globalPerperties` 中进行声明，绑定到全局属性中。如此操作后在所有组件实例中就可以通过 proxy.$sub注册事件，proxy.$pub 触发事件。
 
-新建/plugins/emitter.js
+新建`/plugins/emitter.js`
 
 ```js
 import mitt from "mitt";
