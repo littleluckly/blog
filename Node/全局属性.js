@@ -1,3 +1,7 @@
+// Node
+// 适合i/o，不适合计算密集型（cpu）, 异步非阻塞运行机制，通过事件来实现通知
+// 运行时单线程，可以通过process来开启子进程
+
 // node中this默认指向全局属性gobal
 // 但是在文件中，this不是global, 而是被module.exports改写
 // console.log(this); // 输出{}
