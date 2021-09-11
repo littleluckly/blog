@@ -6,19 +6,19 @@ const path = require("path");
 
 // 需求：复制一个文件
 // 方法一：readFile writeFile
-fs.readFile(path.resolve(__dirname, "bz.jpg"), (err, data) => {
-  // data 读取的结果是一个buffer类型
-  // 写入一个新的文件
-  fs.writeFile(
-    path.resolve(__dirname, "bz-copy-1.jpg"),
-    data,
-    (serr, sdata) => {
-      if (sdata) {
-        console.log("copy success");
-      }
-    }
-  );
-});
+// fs.readFile(path.resolve(__dirname, "bz.jpg"), (err, data) => {
+//   // data 读取的结果是一个buffer类型
+//   // 写入一个新的文件
+//   fs.writeFile(
+//     path.resolve(__dirname, "bz-copy-1.jpg"),
+//     data,
+//     (serr, sdata) => {
+//       if (sdata) {
+//         console.log("copy success");
+//       }
+//     }
+//   );
+// });
 // 缺陷：读取的文件内容会存入到内存中，所以如果读取的是一个非常大的文件，会导致电脑死机， 这种复制方式不适合大文件
 
 // 方法二：基于fs.open fs.read fs.wirte fs.close实现读取边读编写操作
@@ -67,18 +67,31 @@ function copy(source, target, cb) {
     });
   });
 }
-copy("./bz.jpg", "./bz-copy-2.jpg", () => {
-  console.log("copy success");
-});
+// copy("./bz.jpg", "./bz-copy-2.jpg", () => {
+//   console.log("copy success");
+// });
 
 // 该方法存在嵌套地狱问题，使用起来繁琐
 
 // 方法三：文件可读流实现， 文件流内部是基于fs.open fs.read fs.close实现，采用了发布订阅模式
-const rs = fs.createReadStream(path.resolve(__dirname, "./b.js"));
-const chunkArr = [];
-rs.on("data", function (chunk) {
-  chunkArr.push(chunk);
+// const rs = fs.createReadStream(path.resolve(__dirname, "./b.js"));
+// const chunkArr = [];
+// rs.on("data", function (chunk) {
+//   chunkArr.push(chunk);
+// });
+// rs.on("end", function () {
+//   console.log(Buffer.concat(chunkArr).toString());
+// });
+
+// 方法三重构，实现一个自己的文件可读流
+const MyCreateReadStream = require("./MyCreateReadStream");
+const myrs = new MyCreateReadStream(path.resolve(__dirname, "./b.js"), {
+  // end: 10,
 });
-rs.on("end", function () {
-  console.log(Buffer.concat(chunkArr).toString());
+const mychunkArr = [];
+myrs.on("data", function (chunk) {
+  mychunkArr.push(chunk);
+});
+myrs.on("end", function () {
+  console.log(Buffer.concat(mychunkArr).toString());
 });
