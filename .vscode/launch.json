@@ -11,7 +11,7 @@
       // "skipFiles": [
       //   "<node_internals>/**"
       // ],
-      "program": "${workspaceFolder}/Node/fs.js"
+      "program": "${workspaceFolder}/js基础/debounce防抖.js"
     }
   ]
 }

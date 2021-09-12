@@ -8,6 +8,7 @@ for (let i = 0; i < arr.length; i++) {
   }
   console.log(i);
 }
+// forEach不能跳出循环
 arr.forEach((item, idx) => {
   if (idx === 2) {
     return;
