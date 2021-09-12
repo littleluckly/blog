@@ -7,17 +7,30 @@
 // 还是上文的sum函数，经过偏函数处理后可以通过sum(a,b)(c)或者sum(a)(b,c)
 // 可以说柯里化是一种特殊的偏函数
 
-const curring = function (fn, preargs = []) {
-  // 记录fn函数的参数个数
-  const len = fn.length;
-  const _this = this;
-  return function (...args) {
-    const newArgs = [...preargs, ...args];
-    if (newArgs.length < len) {
-      return curring.call(_this, fn, newArgs);
+// const curring = function (fn, preargs = []) {
+//   // 记录fn函数的参数个数
+//   const len = fn.length;
+//   const _this = this;
+//   return function (...args) {
+//     const newArgs = [...preargs, ...args];
+//     if (newArgs.length < len) {
+//       return curring.call(_this, fn, newArgs);
+//     }
+//     return fn.apply(this, newArgs);
+//   };
+// };
+
+// 或者写成：
+const curring = (fn) => {
+  const g = (...args) => {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
     }
-    return fn.apply(this, newArgs);
+    return (...leftArgs) => {
+      return g(...args, ...leftArgs);
+    };
   };
+  return g;
 };
 const sum = (a, b, c, d) => {
   return a + b + c + d;
