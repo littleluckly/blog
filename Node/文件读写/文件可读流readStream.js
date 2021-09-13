@@ -72,7 +72,8 @@ function copy(source, target, cb) {
 
 // 该方法存在嵌套地狱问题，使用起来繁琐
 
-// 方法三：文件可读流实现， 文件流内部是基于fs.open fs.read fs.close实现，采用了发布订阅模式
+// 方法三：fs.createReadStream基于文件可读流实现复制，
+// fs.createReadStream内部是基于fs.open fs.read fs.close实现，采用了发布订阅模式
 // const rs = fs.createReadStream(path.resolve(__dirname, "./b.js"));
 // const chunkArr = [];
 // rs.on("data", function (chunk) {
@@ -82,7 +83,7 @@ function copy(source, target, cb) {
 //   console.log(Buffer.concat(chunkArr).toString());
 // });
 
-// 方法三重构，实现一个自己的文件可读流
+// 方法三fs.createReadStream重写，实现一个自己的文件可读流
 const MyCreateReadStream = require("./MyCreateReadStream");
 const myrs = new MyCreateReadStream(path.resolve(__dirname, "./b1.js"), {
   // end: 10,
