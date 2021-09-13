@@ -28,7 +28,7 @@ class MyCreateReadStream extends EventEmitter {
   open() {
     fs.open(this.path, this.flags, (err, fd) => {
       if (err) {
-        return this.emit(err);
+        return this.emit("err", err);
       }
       this.fd = fd; // 文件描述符
       this.emit("open", fd);

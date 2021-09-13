@@ -22,7 +22,6 @@ const path = require("path");
 // 缺陷：读取的文件内容会存入到内存中，所以如果读取的是一个非常大的文件，会导致电脑死机， 这种复制方式不适合大文件
 
 // 方法二：基于fs.open fs.read fs.wirte fs.close实现读取边读编写操作
-
 function copy(source, target, cb) {
   const BUFFER_LENGTH = 3;
   let read_position = 0;
@@ -85,10 +84,13 @@ function copy(source, target, cb) {
 
 // 方法三重构，实现一个自己的文件可读流
 const MyCreateReadStream = require("./MyCreateReadStream");
-const myrs = new MyCreateReadStream(path.resolve(__dirname, "./b.js"), {
+const myrs = new MyCreateReadStream(path.resolve(__dirname, "./b1.js"), {
   // end: 10,
 });
 const mychunkArr = [];
+myrs.on("err", (err) => {
+  console.log("err: ", err);
+});
 myrs.on("data", function (chunk) {
   mychunkArr.push(chunk);
 });
