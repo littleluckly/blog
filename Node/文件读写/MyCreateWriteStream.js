@@ -1,6 +1,7 @@
 const EventEmitter = require("events");
 const fs = require("fs");
 const path = require("path");
+const Queue = require("../链表/queue.js");
 
 class MyCreateWriteStream extends EventEmitter {
   constructor(path, options) {
@@ -18,6 +19,7 @@ class MyCreateWriteStream extends EventEmitter {
     this.offset = 0; // 写入的偏移量
     this.len = 0; // 记录写入的长度, 用于和this.highWaterMark，cache判断是否清空 这2个条件共同判断是否需要执行drain回调
     this.cache = [];
+    // this.cache = new Queue();
   }
 
   open() {
