@@ -29,7 +29,7 @@ console.log(Colors.RED, Colors.GREEN, Colors.BLUE)
 // 任意类型
 // any
 
-// 多类型,或
+// 联合类型
 let mul:number|string
 mul=123
 mul='123'
@@ -38,3 +38,13 @@ mul='123'
 let x:number
 // 如果tsconfig.json开启了严格配置strict:true，则不能将undefined null赋值给其他类型
 // x=undefined
+
+// 非空断言
+let element:HTMLElement|null = document.querySelector('#root') // document需要配置tsconfig.json字段lib: ["ESNext"]
+// 下面这个语句会提示错误，硬卧element可能位null
+// element.style.color='red'
+// 使用!非空断言，告诉ts，element肯定存在
+
+// Symbol
+// 一般情况下Symbol不能使用，需要配置tsconfig.json的lib字段  lib: ["ESNext"]
+const key1 = Symbol('k')
