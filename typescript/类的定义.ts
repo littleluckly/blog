@@ -25,19 +25,19 @@
 // }
 // 上面的写法等同于
 class User {
-  public name:string  // 默认是public 也可以省略不写
-  constructor(name:string){
-    this.name=name
+  public name: string  // 默认是public 也可以省略不写
+  constructor(name: string) {
+    this.name = name
   }
-} 
+}
 
 // 类属性：readonly只读属性, 只能在constructor中赋值一次
 class Animal {
-  public readonly name:string // 默认是public 也可以省略不写
-  constructor(name:string){
-    this.name=name
+  public readonly name: string // 默认是public 也可以省略不写
+  constructor(name: string) {
+    this.name = name
   }
-  changeName(name:string){
+  changeName(name: string) {
     // 报错，不允许对readonly属性修改
     // this.name=name
   }
@@ -46,22 +46,25 @@ class Animal {
 
 // protected 
 class Father {
-  public name:string  // 父类、子类、实例均能访问
-  protected year:number // 父类，子类能访问，实例不能访问
-  private money:number=123 // 仅父类自己可以访问
-  constructor(name:string,year:number){
-    this.name=name
+  static fatherName: string = 'fathername'  // 父类，子类能访问，实例不能访问
+  public name: string  // 父类、子类、实例均能访问
+  protected year: number // 父类，子类能访问，实例不能访问
+  private money: number = 123 // 仅父类自己可以访问
+  constructor(name: string, year: number, money: number) {
+    this.name = name
     this.year = year
+    this.money = money
   }
 }
 class Child extends Father {
-  constructor (name:string, year:number, public childName:string){
-    super(name,year)
-    this.childName=childName
+  constructor(name: string, year: number, money: number, public childName: string) {
+    super(name, year, money)
+    this.childName = childName
   }
-  getFatherName():string{
+  getFatherName(): string {
     return this.name
   }
 }
-const p2 = new Child('father',60, 'child')
+const p2 = new Child('father', 60, 122222, 'child')
 p2.name // 子类实例可访问父类的public属性
+Child.fatherName
