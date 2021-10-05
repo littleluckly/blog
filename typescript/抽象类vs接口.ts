@@ -1,5 +1,6 @@
 export { }
 
+// 抽象类
 // 只能被继承，不能实例
 // 继承的子类必须实现抽象类中的方法
 abstract class Animal {
