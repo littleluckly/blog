@@ -4,6 +4,18 @@ shell 是一个应用程序，它连接了用户和 Linux 内核，让用户能�
 
 shell 可以直接调用 linux 命令
 
+shell脚本编写注意事项：
+
+- 开头添加 bash路径`#!/bin/bash`
+
+  不同服务器的bash路径不一致，可以先通过 命令`whereis bash`获取正确的bash路径
+
+- 命名建议规则：变量名大写、局部变量小写、函数名小写、名字体现实际作用
+
+- 变量默认全局，在函数中的变量用local指定为局部变量，避免污染其他作用域
+
+- `set -e`遇到执行非0时退出脚本，`set -x`打印执行过程
+
 
 
 ## shell基础
@@ -695,6 +707,35 @@ do
   i=$(($i+1))
 done
 echo "$result"
+
+```
+
+
+
+> 函数
+
+函数定义可以不带function关键字，也可以带function关键字，函数调用不需要带圆括号。
+
+函数如果需要传参，则通过$n的方式获取，n是数字，$1-9代表第1到第9个参数，10以上的参数需要用大括号获取，如${10}
+
+```shell
+function start(){
+	echo 'start function'
+}
+# 也可以不带function关键字
+start2(){
+	echo 'start2 function'
+}
+# 函数调用不需要带圆括号
+start
+start2
+
+function sum(){ 
+local result=$(($1+$2)) # 变量默认全局，在函数中的变量用local指定为局部变量，避免污染其他作用域
+echo $result 
+return $result
+}
+echo $?  # $?打印上一个命令的执行结果
 
 ```
 
