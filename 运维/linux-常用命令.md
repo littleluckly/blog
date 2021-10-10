@@ -234,3 +234,16 @@ find . -type d | sort   查找当前所有目录并排序
 find . -size +100M  查找当前目录大于100M的文件
 ```
 
+
+
+> grep
+
+```shell
+[root@root ~]# cat /root/bin/hello.sh  // 使用cat命令可以将目标文件内容打印在控制台上
+#!/bin/bash
+echo hello~~~~~
+[root@root ~]# cat /root/bin/hello.sh | grep hello  // 配合grep可以找出hello，并打印在控制台上
+echo hello~~~~~
+```
+
+![image-20211009094207409](https://i.loli.net/2021/10/09/dIarKNtj6ZUVzPb.png)
