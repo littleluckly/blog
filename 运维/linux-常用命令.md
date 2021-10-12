@@ -247,3 +247,13 @@ echo hello~~~~~
 ```
 
 ![image-20211009094207409](https://i.loli.net/2021/10/09/dIarKNtj6ZUVzPb.png)
+
+
+
+## 其他
+
+工具介绍：
+
+xftp：在本地和服务器之间传递文件的工具
+
+finalShell：连接服务的shell工具

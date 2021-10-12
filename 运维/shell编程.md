@@ -182,7 +182,7 @@ exit // 退出子shell
 
 > ##### 添加全局可执行命令
 
-示例：添加一个全局可执行命令`hello.sh`
+示例：添加一个全局可执行命令`hello.sh`，如果要调试脚本可以使用 `sh -x 脚本名称`
 
 **方法一：**
 
@@ -418,7 +418,21 @@ zhangsan lisi
 
 > awk
 
+示例：获取nginx服务的pid
 
+```shell
+[root@root /]# ps -ef | grep nginx
+root      6335     1  0 17:25 ?        00:00:00 nginx: master process /usr/sbin/nginx
+nginx     6337  6335  0 17:25 ?        00:00:00 nginx: worker process
+root      6771 25465  0 17:25 pts/2    00:00:00 grep --color=auto nginx
+[root@root /]# ps -ef | grep nginx | grep master
+root      6335     1  0 17:25 ?        00:00:00 nginx: master process /usr/sbin/nginx
+[root@root /]# ps -ef | grep nginx | grep master | awk '{print $2}'
+6335
+
+```
+
+![image-20211010212135739](https://i.loli.net/2021/10/10/t9PoVfO3wyjHSNJ.png)
 
 > sed
 
