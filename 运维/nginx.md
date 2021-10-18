@@ -596,7 +596,90 @@ server {
 }
 ```
 
+### 缓存配置
+
+#### 浏览器缓存机制
+
+![image-20211018204047193](https://i.loli.net/2021/10/18/7CIqlXHTc1KER3p.png)
 
 
-进展：30
+
+##### 校验方式
+
+- 校验是否过期  Expires、Cach-Control(max-age)
+- Etag
+- Last-Modified
+
+
+
+#### nginx缓存配置
+
+##### expires
+
+用法： `expires time`
+
+上下文：可以配置在http、server、location中
+
+示例：
+
+```shell
+location ~ .*\.(jpe?g|png|gif)$ {
+	expires 24h;
+}
+```
+
+
+
+
+
+### 跨域
+
+#### add_header
+
+配置Access-Control-Allow-Origin
+
+- `add_header Access-Control-Allow-Origin http://127.0.0.1:8080/`
+- `add_header Access-Control-Method GET POST PUT DELETE OPTIONS`
+
+
+
+### 防盗链
+
+### 代理服务
+
+**正向代理：** 比如公司的外网代理，员工不能直接访问外网，而是通过公司的代理访问，这个过程中公司的网络代理承担的角色就是正向代理。真正的被访问的服务器只清楚哪个代理服务器访问了他，并不出清真实的访问者
+
+案例演示：
+
+本机通过nginx访问百度
+
+1. 先配置本机的host,将域名指向nginx服务
+
+   ```shell
+   120.24.254.14   www.baidu.com
+   ```
+
+   
+
+2. nginx配置代理服务proxy_pass, 访问百度
+
+   ```shell
+   location / {
+   	proxy_pass http://$http_host$request_uri;
+   }
+   ```
+
+   
+
+**反向代理：**
+
+
+
+
+
+
+
+
+
+进展：31结束
 
