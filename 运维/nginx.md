@@ -140,7 +140,7 @@ http {
 目标配置一个服务，域名为www.test1.com，其首页静态资源指向 `/usr/share/nginx/html/test/index.html`。
 
 1. 新建一个配置文件 `/etc/nginx/conf.d/test1.conf`  
-   - nginx会自动加载`test1.conf`文件，因为主配置文件 `/etc/nginx/nginx.conf`中有一个配置项：`include /etc/nginx/default.d/*.conf;`
+   - nginx会自动加载`test1.conf`文件，因为主配置文件 `/etc/nginx/nginx.conf`中有一个配置项：`include /etc/nginx/conf.d/*.conf;`
 2. 配置内容：
 
 ```shell
@@ -681,5 +681,5 @@ location ~ .*\.(jpe?g|png|gif)$ {
 
 
 
-进展：31结束
+进展：33
 
