@@ -303,7 +303,46 @@ server {  # 配置2
 # www.mydomain.com 匹配了配置1
 ```
 
+#### location配置
 
+资源路径配置
+
+语法：
+
+```shell
+#语法： location [=|~|~*|^~|@] uri {xxx}
+```
+
+
+
+##### 前缀符号
+
+- 不加前缀，普通匹配，
+
+- = 精确匹配  完全匹配，多一个少一个字符都匹配不上
+
+- ~ 表示正则 
+
+  - ~ 普通正则，区分大小写
+
+    ```shell
+    # 将/sina/api/xxx  代理到/api/xxx
+    location ~ ^/sina(.+) {
+    	proxy_pass http://localhost:3000$1;
+    }
+    ```
+
+    
+
+  - ~*忽略大小写
+
+- ^~ 表示匹配上后不在进行正则表达式匹配
+
+- @ 内部跳转
+
+##### 匹配顺序
+
+![image-20211023142853135](https://i.loli.net/2021/10/23/UaDReFIN6piJhvn.png)
 
 ### 内置核心模块
 
@@ -647,9 +686,11 @@ location ~ .*\.(jpe?g|png|gif)$ {
 
 ### 代理服务
 
-**正向代理：** 比如公司的外网代理，员工不能直接访问外网，而是通过公司的代理访问，这个过程中公司的网络代理承担的角色就是正向代理。真正的被访问的服务器只清楚哪个代理服务器访问了他，并不出清真实的访问者
+#### **正向代理** 
 
-案例演示：
+比如公司的外网代理，员工不能直接访问外网，而是通过公司的代理访问，这个过程中公司的网络代理承担的角色就是正向代理。可以理解为客户端的代理
+
+W案例演示：
 
 本机通过nginx访问百度
 
@@ -671,15 +712,112 @@ location ~ .*\.(jpe?g|png|gif)$ {
 
    
 
-**反向代理：**
+#### **反向代理**
+
+可以理解为服务器端的代理
+
+![image-20211023102231153](https://i.loli.net/2021/10/23/cEzwFbJIyxRktSi.png)
+
+案例演示：
+
+服务器端有3个接口服务server，客户端访问接口时，经过nginx的反向代理访问不同的接口
+
+##### 环境准备
+
+安装node, 启动3个不同的接口服务
+
+- 下载node `curl -sL https://rpm.nodesource.com/setup_12.x | bash -`
+- 安装 `yum install -y nodejs`
+- 查看版本： `node -v`
 
 
 
+##### 启动server服务
 
+- 创建文件夹 `mkdir -p /root/services/server1`
 
+- 进入文件夹 `cd /root/services/server1`
 
+- 初始化package.json文件： `npm init -y`
 
+- 安装express `npm i express -S`
 
+- 创建 `index.js`文件：
+
+  ```js
+  const express = require("express");
+  const app = express();
+  const port = 3000;
+  
+  app.get("/api", (req, res) => {
+    res.send("3000server api");
+  });
+  
+  app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+  });
+  ```
+
+- 启动server服务： `node index.js`
+
+按上述步骤启动端口为3001、3002的服务
+
+##### 配置反向代理proxy_pass
+
+```shell
+# 配置nginx.conf，增加一个匹配规则，当用户请求/api开头的地址时，发现代理到端口3000的服务
+        location ~ ^/api {
+        	proxy_pass http://localhost:3000;
+        }
+        
+# 配置后 测试配置是否正确
+# nginx -t
+# 重新加载配置
+# systemctl reload nginx.service
+```
+
+在用户浏览器访问 `http://120.24.254.14/api`，实际被nginx代理到3000端口的服务了
+
+proxy_pass的代理规则
+
+- 如果proxy_pass后的url一个`/`结尾，表示绝对路径，location中匹配的部分会被替换，如：
+
+  ```shell
+  location /a/ {
+  	proxy_pass http://127.0.0.1/b/;
+  }
+  # 请求http://example.com/a/test.html 会被代理到http://127.0.0.1/b/test.html
+  ```
+
+  ![image-20211023103526892](https://i.loli.net/2021/10/23/lHGYbnBU7JxkrRE.png)
+
+  ```shell
+  location /c/ {
+  	proxy_pass http://127.0.0.1/;
+  }
+  # 请求http://example.com/c/test.html 会被代理到http://127.0.0.1/test.html
+  ```
+
+  ![image-20211023104041773](https://i.loli.net/2021/10/23/LFoBc27av3hGf8g.png)
+
+##### 其他配置
+
+用户通过反向代理访问真实的api服务，api服务默认情况下获取到的host、ip等请求头信息其实是代理服务器nginx的信息，只有在代理服务器nginx将请求头信息转发给api服务，后者才能正确获取
+
+- proxy_set_header  向后传递头信息
+
+  ```shell
+  proxy_set_header HOST $http_host; # 将用户的host信息，设置成代理服务器的host, 这样被代理的服务才能正确获取用户的host，$http_host是nginx的变量
+  proxy_set_header X-Real-IP $remote_addr;
+  ```
+
+- proxy_connect_timeout 默认超时事件
+
+- proxy_send_timeout
+
+- proxy_read_timeout
+
+20lkj阿里斯顿减肥
 
 进展：33
 
