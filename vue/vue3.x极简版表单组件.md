@@ -1,3 +1,5 @@
+[toc]
+
 本文从零开始实现一个自定义的 vue3.x 表单组件`ti-form`，组件使用体验类似 element-ui。
 
 完整代码地址：[https://github.com/littleluckly/vue3.x-components-study](https://github.com/littleluckly/vue3.x-components-study)
