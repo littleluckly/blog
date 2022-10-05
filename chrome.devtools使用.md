@@ -12,7 +12,7 @@
 
    输入关键字 `theme`, 就可以过滤出主题相关的命令，选择其中一个即可
 
-   ![image-20210915080800984](/Users/xiongweiliu/Library/Application Support/typora-user-images/image-20210915080800984.png)
+   ![image](https://github.com/littleluckly/blog/blob/master/images/image-20210915080800984.png)
 
 2. 截屏
 
@@ -22,7 +22,7 @@
    - 全屏滚动截屏 `Capture full size screenshot`
    - dom元素截屏 `Capture node screenshot`
    - 截取当前屏幕 `Capture screenshot`
-   ![image](https://github.com/littleluckly/blog/blob/master/images/image-20210915080800984.png)
+  ![image](https://github.com/littleluckly/blog/blob/master/images/image-20210915081202716.png)
 
 
 
