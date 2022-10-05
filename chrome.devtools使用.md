@@ -22,8 +22,7 @@
    - 全屏滚动截屏 `Capture full size screenshot`
    - dom元素截屏 `Capture node screenshot`
    - 截取当前屏幕 `Capture screenshot`
-
-   ![image-20210915081202716](/Users/xiongweiliu/Library/Application Support/typora-user-images/image-20210915081202716.png)
+   ![image](https://github.com/littleluckly/blog/blob/master/images/image-20210915080800984.png)
 
 
 
