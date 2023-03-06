@@ -32,3 +32,9 @@
 2. 执行`xcodebuild -showsdks`
 3. 执行`xcrun --sdk iphoneos --show-sdk-path`
 
+
+
+## 文件权限
+
+#### 获取当前文件及目录所有权限
+

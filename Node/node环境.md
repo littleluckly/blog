@@ -1,4 +1,4 @@
-## node版本管理
+## node版本管理工具
 
 1. 安装包管理工具
    `npm install -g n`
@@ -27,4 +27,59 @@
 
 7. 切换版本，输入n回车  出现node版本列表，上下键移动选择切换的版本后回车(切换非n安装的node版本会报错，删掉，使用n安装即可)
    `n`
+
+
+
+## npm的镜像源管理工具
+
+#### 安装
+
+`npm i nrm -g`
+
+#### 使用
+
+- 查看npm源
+  `nrm ls`
+
+  ```shell
+    npm ---------- https://registry.npmjs.org/
+    yarn --------- https://registry.yarnpkg.com/
+    tencent ------ https://mirrors.cloud.tencent.com/npm/
+    cnpm --------- https://r.cnpmjs.org/
+    taobao ------- https://registry.npmmirror.com/
+    npmMirror ---- https://skimdb.npmjs.com/registry/
+  ```
+
+- 使用源
+  `nrm use 名称`
+
+- 新增源
+
+  `nrm add 名称 地址`
+
+- 删除源
+
+  `nrm del 名称`
+
+
+
+#### npm源配置命令
+
+- 直接安装cnpm 
+
+`npm install cnpm -g --registry=https://registry.npm.taobao.org`
+
+- 直接更改源地址
+
+`npm set registry https://registry.npm.taobao.org/`
+
+- 查看npm源地址
+
+`npm config list`
+
+- 删除源地址
+
+`npm config rm registry`
+
+
 
